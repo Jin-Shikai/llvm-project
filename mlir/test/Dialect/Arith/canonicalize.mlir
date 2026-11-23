@@ -1950,6 +1950,15 @@ func.func @scalingTruncFPoisonInput(%scale: f8E8M0FNU) -> f4E2M1FN {
   return %0 : f4E2M1FN
 }
 
+// CHECK-LABEL:  @xAddZeroFold(
+//  CHECK-SAME:     %[[ARG0:.+]]: index)
+//  CHECK-NEXT:     return %[[ARG0]] : index
+func.func @xAddZeroFold(%arg0: index) -> index {
+  %cst = arith.constant 0 : index
+  %add = arith.addi %arg0, %cst : index
+  return %add : index
+}
+
 // CHECK-LABEL: @tripleAddAdd
 //       CHECK:   %[[cres:.+]] = arith.constant 59 : index
 //       CHECK:   %[[add:.+]] = arith.addi %arg0, %[[cres]] : index
